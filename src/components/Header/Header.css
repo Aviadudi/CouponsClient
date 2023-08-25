@@ -1,0 +1,32 @@
+
+
+header>.header{
+    /* display: grid;
+    grid-template-columns: repeat(12, 1fr); */
+        text-align: left;
+
+}
+
+.sitename{
+    display: inline-block;
+    font-size: 30px;
+    margin-top: 5px;
+    margin-bottom: 0;
+    margin-left: 40%;
+    /* grid-column: span 3; */
+    
+}
+
+.login-button{
+    display: inline-block;
+    /* height: min-content;
+    width: min-content; */
+    padding: 5px 10px;
+    font-size: 15px;
+    margin-left: 20px;
+    margin-top: 4%;
+}
+
+.search-bar{
+    margin-left: 300px;
+}
