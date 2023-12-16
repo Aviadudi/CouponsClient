@@ -1,4 +1,40 @@
-.couponsContainer{
-    margin-top: 2%;
-    margin-bottom: 10%;
+.main {
+  grid-column: span 12;
+  height: 100%;
+}
+
+.couponsContainer {
+  /* display: flex; */
+  margin-bottom: 15px;
+}
+
+.head{
+  display: grid;
+  text-align: left;
+}
+
+.couponsContainer .category{
+  display: inline-block;
+  margin-left: 100px;
+  /* text-decoration-line: underline;
+  text-underline-offset: 30%; */
+}
+
+.create-btn{
+  display: inline-block;
+  margin-right: 100px;
+  margin-left: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 20px;
+  background-color: #2667bb;
+  color: white;
+  border: 1px solid #2667bb;
+  font-size: 14px;
+}
+
+.create-btn:hover{
+  cursor: pointer;
 }

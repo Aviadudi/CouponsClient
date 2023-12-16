@@ -1,47 +1,132 @@
 .coupon-card {
   display: inline-block;
-  height: 380px;
-  width: 220px;
-  border: 3px solid black;
-  border-radius: 5px;
+  /* background-size: cover; */
+  /* background-repeat: no-repeat; */
+  /* height: 400px;
+  width: 220px; */
+  /* height: 375px; */
+  width: 240px;
+  border: 1.5px solid rgba(161, 161, 161, 0.8);
+  border-radius: 20px;
   margin: 20px 20px;
   padding-left: 10px;
   text-align: left;
   background-color: white;
   vertical-align: top;
 }
+.coupon-card:hover {
+  box-shadow: 0 0 5px #2667bb;
+}
 
+.picture {
+  block-size: 150px;
+  margin-top: 10px;
+  margin-left: 2.5px;
+  border-radius: 20px;
+  max-height: 150px;
+  max-width: 225px;
+}
 .coupon-name {
   display: block;
-  text-align: center;
-  font-size: large;
+  /* text-align: left; */
+  font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.description {
+  display: block;
+  height: 60px;
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
 .amount-to-purchase {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
+  display: inline-block;
+  background-color: rgb(243, 243, 243);
+  /* margin-left: 90px; */
+  /* margin-top: 10px; */
+  /* text-align: center; */
+  width: 50px;
+  border-radius: 20px;
+  border: none;
+  padding: 4px;
   text-align: center;
-  width: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
 }
+input::-webkit-inner-spin-button {
+  opacity: 1;
+}
+
+.amount-to-purchase:focus {
+  outline: none;
+  background-color: rgb(243, 243, 243);
+}
+.amount-to-purchase:hover {
+  outline: none;
+  background-color: rgb(243, 243, 243);
+}
+
+.amount-left {
+  font-size: 11px;
+}
+
 .error-message {
   color: red;
   font-size: 10px;
   min-height: 10px;
   max-height: 10px;
   margin-top: 3px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
   text-align: center;
 }
 
-.purchase-button {
-    display: block;
-  margin-left: auto;
-  margin-right: auto;
-  cursor: pointer;
+.price {
+  display: block;
+  font-weight: 700;
+  text-align: center;
 }
 
-.coupon-info{
-    block-size: 280px;
+.total-price{
+  font-size: 10px;
+  min-height: 13px;
+  max-height: 13px;
+  text-align: center;
+  margin: 0;
 }
+
+.purchase-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 60px;
+  padding-right: 60px;
+  border-radius: 20px;
+  background-color: transparent;
+  border: 1px solid #2667bb;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.purchase-button:hover:not(:disabled) {
+  background-color: #2667bb;
+  color: white;
+  cursor: pointer;
+}
+.purchase-button:disabled {
+  border-color: rgba(16, 16, 16, 0.3);
+}
+
+.purchase-button:active:is(:disabled) {
+  transform: scale(1);
+}
+
+/* .end-date{
+  position: relative;
+  z-index: 1;
+  top: -50px;
+} */

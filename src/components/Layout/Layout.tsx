@@ -1,29 +1,38 @@
-import AsideMenu from "../AsideMenu/AsideMenu";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CouponsContainer from "../CouponsContainer/CouponsContainer";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import Login from "../Login/Login";
+import UpperMenu from "../UpperMenu/UpperMenu";
 import "./Layout.css";
+import Purchases from "../Purchases/Purchases";
+import AboutUs from "../About/AboutUs";
+import UsersPage from "../UsersPage/UsersPage";
 
 function Layout() {
-  return(
-  <section className="layout">
-    <header className="header">
-      <Header />
-    </header>
+  return (
+    <section className="layout">
+      <header className="header">
+        <Header />
+      </header>
 
-    <aside className="aside">
-        <AsideMenu/>
-    </aside>
+      <menu className="menu">
+        <UpperMenu />
+      </menu>
 
-    <main className="main">
-        <CouponsContainer/>
-    </main>
+      <main className="main">
+        <Routes>
+          <Route path="/" element={<CouponsContainer />} />
+          <Route path="/purchases" element={<Purchases />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/users" element={<UsersPage/>}/>
+          {/* <CouponsContainer /> */}
+        </Routes>
+      </main>
 
-    <footer className="footer">
-        <Footer/>
-    </footer>
-  </section>
+      <footer className="footer">
+        <Footer />
+      </footer>
+    </section>
   );
 }
 

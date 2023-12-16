@@ -1,32 +1,119 @@
-
-
-header>.header{
-    /* display: grid;
-    grid-template-columns: repeat(12, 1fr); */
-        text-align: left;
-
+header {
+  grid-column: span 12;
+  min-height: 100px;
+  max-height: 130px;
+  text-align: left;
 }
 
-.sitename{
-    display: inline-block;
-    font-size: 30px;
-    margin-top: 5px;
-    margin-bottom: 0;
-    margin-left: 40%;
-    /* grid-column: span 3; */
-    
+.sitename {
+  display: inline-block;
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  margin-left: 20px;
+  cursor: pointer;
+  width: min-content;
+  padding: 13px;
+  color: #2667bb;
+  border: none;
+}
+.sitename:hover {
+  box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.2);
+  border: none;
 }
 
-.login-button{
-    display: inline-block;
-    /* height: min-content;
-    width: min-content; */
-    padding: 5px 10px;
-    font-size: 15px;
-    margin-left: 20px;
-    margin-top: 4%;
+.sitename:active {
+  transform: scale(1);
 }
 
-.search-bar{
-    margin-left: 300px;
+header button {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 15px;
+  margin-right: 25px;
+  margin-top: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #2667bb;
+  background-color: transparent;
+  border: 1px solid transparent;
 }
+.login-button {
+  margin-left: 1070px;
+}
+.dropdown-userOptions{
+  position: relative;
+  display: inline-block;
+  margin-left: 1070px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+}
+.dropbtn:hover{
+  border: 1px solid transparent;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 20px;
+  padding: 10px;
+  margin-top: 0.5px;
+}
+.dropdown-userOptions:hover .dropdown-content {
+  display: block;
+}
+.dropbtn{
+  margin: 0;
+}
+.dropbtn-option{
+  width: 130px;
+  margin: 0;
+  text-align: left;
+  font-weight:500;
+}
+.dropbtn-option:hover{
+  border: none;
+  font-weight:700;
+}
+
+header button:active {
+  transition: 0.15s;
+  transform: scale(0.9);
+}
+
+header button:hover {
+  border-radius: 24px;
+  border: 1px solid #2667bb;
+}
+
+.search-bar {
+  display: inline;
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 190px;
+  margin-right: 200px;
+  width: 700px;
+  height: 50px;
+  border: 1px solid rgb(161, 161, 161, 1);
+  border-radius: 50px;
+  font-size: 15px;
+  padding-left: 25px;
+}
+
+.search-bar:focus {
+  box-shadow: 0 0 10px black;
+  outline: none;
+}
+
+.user-name {
+  display: inline-block;
+  position: absolute;
+  margin-top: 80px;
+  margin-left: 900px;
+  font-size: 20px;
+  font-weight: bold;
+}
+

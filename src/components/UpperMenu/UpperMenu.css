@@ -1,0 +1,33 @@
+menu {
+  padding: 0px;
+  margin: 0px;
+  min-height: 70px;
+  max-height: 70px;
+  grid-column: span 12;
+  text-align: left;
+  background-color: #2667bb;
+}
+.upper-menu {
+  min-height: 70px;
+  max-height: 70px;
+}
+.upper-menu > button {
+  margin-top: 15px;
+  margin-left: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 16px;
+  width: 150px;
+  padding: 10px;
+}
+.upper-menu > button:hover {
+  text-decoration-line: underline;
+  text-underline-offset: 10px;
+}
+.upper-menu button:active {
+  transition: 0.15s;
+  transform: scale(0.9);
+  font-weight: bold;
+}

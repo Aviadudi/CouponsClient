@@ -1,6 +1,18 @@
+import User from "../components/User/User";
+import { ICategory } from "../models/ICategory";
+import { ICompany } from "../models/ICompany";
 import { ICoupon } from "../models/ICoupon";
+import { IUserData } from "../models/IUserData";
 
 export class AppState {
-    public coupons: ICoupon[]=[];
     public allCoupons: ICoupon[]=[];
+    // public couponsFilteredByUserType: ICoupon[]=[];
+    public filteredCouponsToShow: ICoupon[]=[];
+    public user: IUserData = {id:0, userType:"CUSTOMER", companyId:0, username:""};
+    public categories:ICategory[] = [];
+    public companies:ICompany[]=[];
+    public isUserLoggedIn:boolean = false;
+    public isCouponsToShow:boolean = false;
+    // public login:Function = function(){};
+    public currentCategory:string = "All coupons";
 }

@@ -1,0 +1,29 @@
+.users-table {
+  display: inline-block;
+  border-collapse: collapse;
+}
+
+.users-table td {
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.users-table-header {
+  font-weight: 700;
+}
+
+.input-username,
+.input-email {
+  width: max-content;
+  padding: 0;
+}
+
+.id-column,
+.username-column,
+.email-column,
+.company-column {
+  min-width: 120px;
+}
+.editing-row{
+  background-color: lightgray;
+}

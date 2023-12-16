@@ -1,5 +1,12 @@
 export enum ActionType {
-    GetProducts,
-    FilterByCategory,
-    ShowAllCoupons
+  GetCoupons,
+  GetCategories,
+  GetCompanies,
+  FilterByCategory,
+  ShowAllCoupons,
+  Search,
+  ChangeUser,
+  SucceessPurchase,
+  SetCategoryName,
+  SetUserLoggedIn,
 }

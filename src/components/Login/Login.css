@@ -1,0 +1,86 @@
+.Login {
+  width: 360px;
+  height: 210px;
+  border-radius: 50px;
+}
+.Login-header {
+  margin-bottom: 30px;
+}
+.Login > button {
+  font-size: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #2667bb;
+  background-color: transparent;
+  border: none;
+}
+
+.Login .login-btn {
+  background-color: #2667bb;
+  color: white;
+  margin-top: 50px;
+  margin-left: 125px;
+  margin-bottom: 10px;
+  padding: 10px 40px;
+  font-weight: bold;
+}
+
+.Login .cancel-btn {
+  padding: 5px 10px;
+  text-decoration-line: underline;
+  text-underline-offset: 7px;
+  font-weight: lighter;
+  margin-left: 155px;
+}
+
+button:active {
+  transition: 0.15s;
+  transform: scale(0.9);
+}
+
+button:hover {
+  border-radius: 24px;
+  border: 1px solid #2667bb;
+}
+
+.Login > input {
+  border: none;
+  border-bottom: 1px solid black;
+  text-underline-offset: 3px;
+  padding: 3px;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.Login > input:focus {
+  outline: none;
+  background-color: rgb(243, 243, 243);
+}
+
+.Login > input:hover {
+  outline: none;
+  background-color: rgb(243, 243, 243);
+}
+
+.Login .close-btn {
+  position: absolute;
+  color: black;
+  top: 15px;
+  right: 15px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.Login .close-btn:hover{
+  background-color: #2667BB;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.show-pass:hover{
+border: none;
+}

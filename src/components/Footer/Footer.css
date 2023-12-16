@@ -1,0 +1,39 @@
+.footer {
+  grid-column: span 12;
+  min-height: 200px;
+  max-height: 200px;
+  background-color: #2667bb;
+  text-align: left;
+}
+.footer .about-us,
+.service-costumer,
+.how-it-works {
+  vertical-align: top;
+  display: inline-block;
+  margin-top: 50px;
+  margin-left: 70px;
+  width: 150px;
+  color: white;
+}
+
+.footer button {
+  padding: 10px 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.footer button:hover {
+  text-decoration-line: underline;
+  text-underline-offset: 5px;
+  border: none;
+}
+
+.footer p {
+  font-size: 16px;
+  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
