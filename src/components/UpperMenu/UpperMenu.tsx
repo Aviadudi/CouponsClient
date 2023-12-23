@@ -3,6 +3,7 @@ import { ActionType } from "../../redux/action-type";
 import "./UpperMenu.css";
 import { AppState } from "../../redux/app-state";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function UpperMenu() {
   let dispatch = useDispatch();
@@ -13,6 +14,7 @@ function UpperMenu() {
   
   let Categories = useSelector((state: AppState) => state.categories);
   let navigate = useNavigate();
+
 
   function filterByCategory(category: string) {
     dispatch({ type: ActionType.FilterByCategory, payload: category });

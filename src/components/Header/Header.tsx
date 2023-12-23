@@ -162,12 +162,18 @@ function Header() {
           </button>
           <div className="dropdown-content">
             {user.userType === "CUSTOMER" && (
+              <div>
               <button
                 className="dropbtn-option"
-                onClick={() => navigate("/purchases")}
+                onClick={() => navigate("/account/purchases")}
               >
                 My purchases
               </button>
+              <button className="dropbtn-option"
+              onClick={()=>navigate("/account/settings")}>
+                Settings
+              </button>
+              </div>
             )}
             {user.userType !== "CUSTOMER" && (
               <button

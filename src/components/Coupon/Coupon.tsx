@@ -26,7 +26,7 @@ function Coupon(props: ICoupon) {
     }
   }
 
-  function handleInputChange(userInputAmount: number) {
+  function onInputChanged(userInputAmount: number) {
     // TODO Add condition to if =>  userInputAmount == Math.E
     validateInputAmount(userInputAmount);
     setPurchaseAmount(userInputAmount);
@@ -103,7 +103,7 @@ function Coupon(props: ICoupon) {
         max={props.amount}
         step={1}
         value={purchaseAmount}
-        onChange={(event) => handleInputChange(+event.target.value)}
+        onChange={(event) => onInputChanged(+event.target.value)}
         disabled={!isAvailable}
       />
       <span className="amount-left">left: {props.amount}</span>

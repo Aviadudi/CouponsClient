@@ -22,7 +22,7 @@ button:active {
   transform: scale(0.9);
 }
 
-button:hover {
+.SignUp button:hover {
   border-radius: 24px;
   border: 1px solid #2667bb;
 }

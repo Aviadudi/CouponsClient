@@ -50,7 +50,7 @@ function Login(props: ILoginModal) {
     }
   };
 
-  function handleOnShowPasswordClicked(){
+  function onShowPasswordClicked(){
     if(passwordType == "text"){
       setPasswordType("password");
       return;
@@ -74,7 +74,7 @@ function Login(props: ILoginModal) {
           placeholder="Password"
           onChange={(event) => setPassword(event.target.value)}
         />
-        <button className="show-pass" onClick={handleOnShowPasswordClicked}><img src={require(`../../images/show-password-16.png`)} alt="show" /></button>
+        <button className="show-pass" onClick={onShowPasswordClicked} ><img src={require(`../../images/show-password-16.png`)} alt="show" /></button>
         <br />
         <button type="submit" className="login-btn" onClick={onLoginClicked}>
           Login

@@ -72,14 +72,14 @@ function CouponsContainer() {
       <div className="head">
         <h2 className="category">{currentCategory}</h2>
 
-        {/* {(user.userType == "ADMIN" || user.userType == "COMPANY") && ( */}
+        {(user.userType == "ADMIN" || user.userType == "COMPANY") && (
         <button
           className="create-btn"
           onClick={openCreateCouponModal}
         >
           Create new coupon
         </button>
-        {/* )} */}
+        )}
       </div>
 
       <Modal

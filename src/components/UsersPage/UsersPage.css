@@ -1,5 +1,5 @@
 .users-table {
-  display: inline-block;
+  /* display: inline-block; */
   border-collapse: collapse;
 }
 
@@ -25,5 +25,9 @@
   min-width: 120px;
 }
 .editing-row{
-  background-color: lightgray;
+  background-color: rgb(243, 243, 243);
+}
+
+.create-user-btn{
+  display: inline-block;
 }

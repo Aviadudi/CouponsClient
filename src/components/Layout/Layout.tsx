@@ -7,6 +7,7 @@ import "./Layout.css";
 import Purchases from "../Purchases/Purchases";
 import AboutUs from "../About/AboutUs";
 import UsersPage from "../UsersPage/UsersPage";
+import UserSettings from "../UserSettings/UserSettings";
 
 function Layout() {
   return (
@@ -22,9 +23,10 @@ function Layout() {
       <main className="main">
         <Routes>
           <Route path="/" element={<CouponsContainer />} />
-          <Route path="/purchases" element={<Purchases />} />
+          <Route path="/account/purchases" element={<Purchases />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/users" element={<UsersPage/>}/>
+          <Route path="/account/settings" element={<UserSettings/>}/>
           {/* <CouponsContainer /> */}
         </Routes>
       </main>

@@ -1,0 +1,8 @@
+.user-settings{
+    min-height: 100px;
+    
+}
+
+.user-settings td,tr{
+    border: none;
+}
