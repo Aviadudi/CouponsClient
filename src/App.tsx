@@ -44,7 +44,23 @@ function App() {
     }
   }
 
+  async function getUserData() {
+    try {
+      const response = await axios.get("http://localhost:8080/users/byToken");
+      let user = response.data;
+      dispatch({ type: ActionType.ChangeUser, payload: user });
+    } catch (error: any) {
+      alert(error.response.data.errorMessage);
+    }
+  }
+
   useEffect(() => {
+    let localStoredToken = localStorage.getItem("token");
+    if(localStoredToken){
+      axios.defaults.headers.common["Authorization"] = localStoredToken;
+      getUserData();
+      dispatch({ type: ActionType.SetUserLoggedIn, payload: true });
+    }
     if (!isUserLoggedIn) {
       fetchCoupons();
     }
@@ -52,7 +68,7 @@ function App() {
       fetchCopanies();
     }
     fetchCategories();
-  }, [user]);
+  }, []);
 
   return (
     <div className="App">

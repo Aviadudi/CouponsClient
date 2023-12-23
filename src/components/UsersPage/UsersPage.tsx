@@ -13,7 +13,6 @@ import Modal from "react-modal";
 import SignUp from "../SignUp/SignUp";
 import SignUpForAdmin from "../SignUpForAdmin/SignUpForAdmin";
 
-
 const customModalStyles = {
   content: {
     top: "50%",
@@ -25,7 +24,7 @@ const customModalStyles = {
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
     borderRadius: "20px",
     // height: "420px",
-    height: "620px",
+    height: "350px",
     width: "350px",
   },
 };
@@ -110,7 +109,6 @@ function UsersPage() {
     setIsEditing(false);
     setIsChangingPassword(false);
 
-    
     // let initialEditedUser: IUserData = {
     //   id: 0,
     //   username: "",
@@ -202,10 +200,7 @@ function UsersPage() {
     onCancleClickd();
   }
 
-  function onCreateUserClicked(){
-
-  }
-
+  function onCreateUserClicked() {}
 
   async function saveEditedUser() {
     console.log(editedUser);
@@ -219,11 +214,11 @@ function UsersPage() {
     }
   }
 
-  function closeSignupForAdminModal(){
+  function closeSignupForAdminModal() {
     let confirmCancel = window.confirm(
       "Are you sure you want to cancel creating new user?"
     );
-    if(confirmCancel){
+    if (confirmCancel) {
       setIsCreatingNewUser(false);
     }
   }
@@ -241,15 +236,20 @@ function UsersPage() {
     }
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchUsers();
-  },[isEditing]);
-
+  }, [isEditing]);
 
   return (
     <div>
-      {(isAdmin)&&
-      <button className="create-user-btn" onClick={()=>setIsCreatingNewUser(true)}>Create new user</button>}
+      {isAdmin && (
+        <button
+          className="create-user-btn"
+          onClick={() => setIsCreatingNewUser(true)}
+        >
+          Create new user
+        </button>
+      )}
       <table className="users-table">
         <tr className="users-table-header">
           <td>Id</td>
@@ -373,8 +373,8 @@ function UsersPage() {
           </React.Fragment>
         ))}
       </table>
-            {/* SignUp modal */}
-            <Modal
+      {/* SignUp modal */}
+      <Modal
         isOpen={isCreatingNewUser}
         onRequestClose={closeSignupForAdminModal}
         style={customModalStyles}

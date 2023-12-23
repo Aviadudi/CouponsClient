@@ -1,0 +1,30 @@
+.user-type-radio{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.sign-up-for-admin input{
+    border: none;
+    border-bottom: 1px solid black;
+    text-underline-offset: 3px;
+    padding: 3px 3px 0 3px;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.company-select{
+    min-height: 60px;
+}
+
+.create-new-user-btn{
+    font-size: 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    background-color: #2667bb;
+    padding: 10px 40px;
+    border: none;
+    font-weight: bold;
+    /* margin-left: 50px; */
+
+}

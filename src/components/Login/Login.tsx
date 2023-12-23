@@ -8,7 +8,7 @@ import "./Login.css";
 
 interface ILoginModal {
   closeLoginModal: Function;
-  setIsLoginSucceeded: Function;
+  // setIsLoginSucceeded: Function;
 }
 
 function Login(props: ILoginModal) {
@@ -41,7 +41,7 @@ function Login(props: ILoginModal) {
 
       getUserData();
       props.closeLoginModal();
-      props.setIsLoginSucceeded(true);
+      // props.setIsLoginSucceeded(true);
       dispatch({ type: ActionType.SetUserLoggedIn, payload: true });
 
       alert("You've logged in successfully")

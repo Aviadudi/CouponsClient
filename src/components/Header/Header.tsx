@@ -29,7 +29,8 @@ Modal.setAppElement("#root");
 
 function Header() {
   let [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  let [isLoginSucceeded, setIsLoginSucceeded] = useState(false);
+  let isLoginSucceeded = useSelector((state:AppState)=>state.isUserLoggedIn);
+  // let [isLoginSucceeded, setIsLoginSucceeded] = useState(false);
   let [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   let [isSignUpSucceeded, setIsSignUpSucceeded] = useState(false);
   let user = useSelector((state: AppState) => state.user);
@@ -54,7 +55,9 @@ function Header() {
   }
 
   function onLogoutClicked() {
-    setIsLoginSucceeded(false);
+    
+    // setIsLoginSucceeded(false);
+    dispatch({type: ActionType.SetUserLoggedIn, payload: true});
     localStorage.removeItem("token");
     let user: IUserData = {
       id: 0,
@@ -121,7 +124,7 @@ function Header() {
       >
         <Login
           closeLoginModal={closeLoginModal}
-          setIsLoginSucceeded={setIsLoginSucceeded}
+
         />
       </Modal>
 
