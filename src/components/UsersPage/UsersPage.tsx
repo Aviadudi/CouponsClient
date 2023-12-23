@@ -87,7 +87,7 @@ function UsersPage() {
   }
 
   function onEditClick(user: IUserData) {
-    debugger;
+
     console.log(editedUser);
     initializeEditedUserData("EDIT", user);
     setIsEditing(true);
@@ -129,7 +129,7 @@ function UsersPage() {
 
   function initializeEditedUserData(action?: string, user?: IUserData) {
     let initialEditedUser: IUserData;
-    debugger;
+
     if (action == "EDIT" && user) {
       initialEditedUser = {
         id: user.id,
@@ -155,7 +155,7 @@ function UsersPage() {
   }
 
   function onTypeChanged(event: any) {
-    debugger;
+
     let userType: string = event.target.value;
     let companyId: number;
     console.log(editedUser);
@@ -177,7 +177,7 @@ function UsersPage() {
   }
 
   function onCompanyChanged(event: any) {
-    debugger;
+
     setEditedUser({ ...editedUser, companyId: +event.target.value });
   }
 

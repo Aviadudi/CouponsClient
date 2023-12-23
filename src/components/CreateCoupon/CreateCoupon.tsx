@@ -49,7 +49,7 @@ function CreateCoupon(props: ICreateCoupon) {
     //     imageName = selectedImage.name;
     //   }
 
-    // debugger;
+
     // let formData = new FormData();
     // formData.append(imageName, selectedImage);
     // const filepath = `src/images/${imageName}`;
@@ -74,7 +74,7 @@ function CreateCoupon(props: ICreateCoupon) {
     //   }
     // }
     // }
-    debugger;
+   
     let sentCoupon: ICoupon = {
       name: name,
       description: description,
@@ -147,6 +147,9 @@ function CreateCoupon(props: ICreateCoupon) {
     }
   };
 
+  function onDeleteImageClicked(){
+    setSelectedImage64Base(null)
+  }
   useEffect(() => {
     if (coupon) {
       setId(coupon.id);
@@ -165,7 +168,7 @@ function CreateCoupon(props: ICreateCoupon) {
       }
       for (let index = 0; index < companies.length; index++) {
         if (coupon.companyName == companies[index].name) {
-          setCompanyId(companies[index].id)
+          setCompanyId(companies[index].id);
         }
       }
     }
@@ -245,12 +248,7 @@ function CreateCoupon(props: ICreateCoupon) {
             onChange={(category) => setCategoryId(+category.target.value)}
           >
             {coupon ? (
-              <option
-                key={categoryId}
-                value={categoryId}
-                selected
-                hidden
-              >
+              <option key={categoryId} value={categoryId} selected hidden>
                 {coupon.categoryName}
               </option>
             ) : (
@@ -277,12 +275,7 @@ function CreateCoupon(props: ICreateCoupon) {
               onChange={(company) => setCompanyId(+company.target.value)}
             >
               {coupon ? (
-                <option
-                  key={companyId}
-                  value={companyId}
-                  selected
-                  hidden
-                >
+                <option key={companyId} value={companyId} selected hidden>
                   {coupon.companyName}
                 </option>
               ) : (
@@ -318,13 +311,15 @@ function CreateCoupon(props: ICreateCoupon) {
           <input type="file" accept=".jpg" onChange={handleImageSelect} />
         </div>
 
-        {coupon && coupon.imageData != null && (
+        {(coupon && coupon.imageData != null && selectedImage64Base != null) && (
           <div>
-            current image:{" "}
+            current image: <br />
             <img
               className="picture"
               src={`data:image/jpeg;base64,${coupon.imageData}`}
             />
+            <br />
+            {coupon.imageData != null && <button onClick={onDeleteImageClicked}>Delete Image</button>}
           </div>
         )}
         {coupon ? (

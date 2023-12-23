@@ -57,7 +57,7 @@ function Header() {
   function onLogoutClicked() {
     
     // setIsLoginSucceeded(false);
-    dispatch({type: ActionType.SetUserLoggedIn, payload: true});
+    // dispatch({type: ActionType.SetUserLoggedIn, payload: false});
     localStorage.removeItem("token");
     let user: IUserData = {
       id: 0,

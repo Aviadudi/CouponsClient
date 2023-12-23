@@ -56,7 +56,7 @@ function App() {
 
   useEffect(() => {
     let localStoredToken = localStorage.getItem("token");
-    if(localStoredToken){
+    if(localStoredToken && isUserLoggedIn == false){
       axios.defaults.headers.common["Authorization"] = localStoredToken;
       getUserData();
       dispatch({ type: ActionType.SetUserLoggedIn, payload: true });
@@ -68,7 +68,7 @@ function App() {
       fetchCopanies();
     }
     fetchCategories();
-  }, []);
+  }, [user]);
 
   return (
     <div className="App">
