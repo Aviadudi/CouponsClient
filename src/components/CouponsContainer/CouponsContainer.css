@@ -1,29 +1,31 @@
 .main {
   grid-column: span 12;
   height: 100%;
-}
-
-.couponsContainer {
-  /* display: flex; */
-  margin-bottom: 15px;
-}
-
-.head{
-  display: grid;
   text-align: left;
 }
 
-.couponsContainer .category{
+.head{
+  text-align: left;
+}
+
+.couponsContainer {
   display: inline-block;
-  margin-left: 100px;
+  /* width: 100vw; */
+  /* margin-left: 100px; */
+  padding-left: 100px;
+  margin-bottom: 15px;
+
   /* text-decoration-line: underline;
   text-underline-offset: 30%; */
 }
 
-.create-btn{
+.category{
   display: inline-block;
-  margin-right: 100px;
-  margin-left: auto;
+  min-width: 180px;
+}
+.create-btn,.prev-page-btn, .next-page-btn{
+  display: inline-block;
+
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 25px;
@@ -37,4 +39,30 @@
 
 .create-btn:hover{
   cursor: pointer;
+}
+
+.create-btn{
+  /* margin-right: 130px; */
+  margin-left: 230px;
+}
+
+.prev-page-btn{
+  margin-left: 310px;
+  margin-right: 30px;
+  width: 100px;
+}
+.prev-page-btn:disabled, .next-page-btn:disabled{
+  background-color: lightgray;
+  border: 1px solid lightgray;
+}
+.next-page-btn{
+  margin-left: 30px;
+  width: 100px;
+}
+
+.prev-page-btn:hover:not(:disabled), .next-page-btn:hover:not(:disabled){
+  cursor: pointer;
+}
+.prev-page-btn:active:is(:disabled),.next-page-btn:active:is(:disabled) {
+  transform: scale(1);
 }

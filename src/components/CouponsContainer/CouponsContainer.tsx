@@ -140,9 +140,9 @@ debugger;
       <div className="head">
         <h2 className="category">{currentCategoryName}</h2>
 
-        <button onClick={onPreviousClicked} disabled={isFirstPageShown}>previous</button>
+        <button className="prev-page-btn" onClick={onPreviousClicked} disabled={isFirstPageShown}>previous</button>
         Page {currentPage} of total {pages} Pages
-        <button onClick={onNextClicked} disabled={isLastPageShown}>next</button>
+        <button className="next-page-btn" onClick={onNextClicked} disabled={isLastPageShown}>next</button>
         {(user.userType == "ADMIN" || user.userType == "COMPANY") && (
           <button className="create-btn" onClick={openCreateCouponModal}>
             Create new coupon
