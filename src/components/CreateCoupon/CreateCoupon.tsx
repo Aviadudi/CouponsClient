@@ -26,10 +26,10 @@ function CreateCoupon(props: ICreateCoupon) {
   let [categoryId, setCategoryId] = useState(0);
   let [companyId, setCompanyId] = useState(0);
   let [price, setPrice] = useState(0);
-  let [selectedImage, setSelectedImage] = useState<File>();
+  let [selectedImage, setSelectedImage] = useState<File|null>(null);
   let [selectedImage64Base, setSelectedImage64Base] = useState<
     string | undefined | null
-  >("");
+  >(null);
   let categories = useSelector((state: AppState) => state.categories);
   let companies = useSelector((state: AppState) => state.companies);
   let user = useSelector((state: AppState) => state.user);

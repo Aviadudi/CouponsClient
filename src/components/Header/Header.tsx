@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Header.css";
 import Modal from "react-modal";
 import Login from "../Login/Login";
@@ -34,6 +34,7 @@ function Header() {
   let [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   let [isSignUpSucceeded, setIsSignUpSucceeded] = useState(false);
   let user = useSelector((state: AppState) => state.user);
+  let searchInput = useSelector((state:AppState) => state.searchInput);
   const navigate = useNavigate();
 
   let dispatch = useDispatch();
@@ -75,12 +76,15 @@ function Header() {
   function showAllCoupons() {
     navigate("/");
     dispatch({ type: ActionType.FilterByCategory, payload: -1 });
-    dispatch({ type: ActionType.SetCategoryName, payload: "All coupons" });
+    dispatch({ type: ActionType.SetCategoryName, payload: "All Coupons" });
+    dispatch({ type: ActionType.Search, payload: "" });
   }
 
   function search(searchInput: string) {
     searchInput = searchInput.toLowerCase();
     dispatch({ type: ActionType.Search, payload: searchInput });
+    dispatch({ type: ActionType.FilterByCategory, payload: -1 });
+    dispatch({ type: ActionType.SetCategoryName, payload: "All Coupons" });
   }
 
   // function showUsername() {
@@ -90,6 +94,7 @@ function Header() {
   //     return "";
   //   }
   // }
+
 
   return (
     <section>
@@ -103,6 +108,7 @@ function Header() {
         type="text"
         className="search-bar"
         placeholder="Search coupons"
+        value={searchInput}
         onChange={(event) => search(event.target.value)}
       />
 

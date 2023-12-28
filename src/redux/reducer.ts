@@ -100,7 +100,7 @@ export function reduce(
       //   );
       //   newAppState.filteredCouponsToShow = filteredCoupons;
       // }
-      newAppState.searchString = action.payload;
+      newAppState.searchInput = action.payload;
       break;
 
     case ActionType.ChangeUser:

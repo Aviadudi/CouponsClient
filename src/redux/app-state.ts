@@ -18,10 +18,10 @@ export class AppState {
   public companies: ICompany[] = [];
   public filteredCategory: number = -1;
   public filteredCompanies: number[] = [];
-  public searchString: string = "";
+  public searchInput: string = "";
   public isUserLoggedIn: boolean = false;
   public isCouponsToShow: boolean = false;
   // public login:Function = function(){};
-  public currentCategoryName: string = "All coupons";
+  public currentCategoryName: string = "All Coupons";
   //   public currentCategory: string = "All coupons";
 }

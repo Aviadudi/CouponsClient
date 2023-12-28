@@ -40,7 +40,7 @@ function CouponsContainer() {
     (state: AppState) => state.currentCategoryName
   );
   // let currentCategory = useSelector((state: AppState) => state.currentCategory);
-  let searchString = useSelector((state: AppState) => state.searchString);
+  let searchInput = useSelector((state: AppState) => state.searchInput);
   let user = useSelector((state: AppState) => state.user);
   let isUserLoggedIn = useSelector((state: AppState) => state.isUserLoggedIn);
   let [isCreateCouponModalOpen, setIsCreateCouponModalOpen] = useState(false);
@@ -63,21 +63,25 @@ function CouponsContainer() {
     // console.log(currentCategory);
 
     // dispatch({type:ActionType.FilterByCategory, payload: 1});
-debugger;
+    debugger;
     try {
       const response = await axios.get(
-        `http://localhost:8080/coupons/byFilters?page=${currentPage}&categoryIds=${currentCategory}`
-        // `http://localhost:8080/coupons/byFilters?page=${currentPage}&categoryIds=${currentCategory}&searchString=${searchString}`
+        // `http://localhost:8080/coupons/byFilters?page=${currentPage}&categoryIds=${currentCategory}`
+        `http://localhost:8080/coupons/byFilters?page=${currentPage}&categoryIds=${currentCategory}&searchInput=${searchInput}`
       );
-      console.log(response);
 
-      let coupons = response.data.coupons;
-      setPages(response.data.pages);
+      let coupons = response.data.content;
+      setPages(response.data.totalPages);
+
+
+
+      // let coupons = response.data.coupons;
+      // setPages(response.data.pages);
 
       dispatch({ type: ActionType.GetCoupons, payload: coupons });
     } catch (error: any) {
-      // alert(error.response.data.errorMessage);
-      alert("hi hi hi");
+      alert(error.response.data.errorMessage);
+      // alert("hi hi hi");
     }
   }
 
@@ -96,53 +100,63 @@ debugger;
 
   function onPreviousClicked() {
     if (currentPage > 1) {
-      let previousePage = currentPage -1;
+      let previousePage = currentPage - 1;
       setCurrentPage(previousePage);
       checkPage();
     }
   }
 
-  function onNextClicked(){
-    if (currentPage < pages){
-      let nextPage = currentPage +1;
+  function onNextClicked() {
+    if (currentPage < pages) {
+      let nextPage = currentPage + 1;
       setCurrentPage(nextPage);
       checkPage();
     }
   }
-  function checkPage(){
+  function checkPage() {
     if (currentPage == 1) {
       setIsFirstPageShown(true);
-    }else{
+    } else {
       setIsFirstPageShown(false);
     }
 
-    if(currentPage == pages){
+    if (currentPage == pages) {
       setIsLastPageShown(true);
-    } else{
+    } else {
       setIsLastPageShown(false);
     }
-
   }
 
   useEffect(() => {
     setCurrentPage(1);
-  },[currentCategory])
+  }, [currentCategory]);
 
   useEffect(() => {
     debugger;
     fetchCoupons();
     navigate(`?page=${currentPage}`);
     checkPage();
-  }, [user, currentCategory, currentPage, pages]);
+  }, [user, currentCategory, currentPage, pages, searchInput]);
 
   return (
     <div className="couponsContainer">
       <div className="head">
         <h2 className="category">{currentCategoryName}</h2>
-
-        <button className="prev-page-btn" onClick={onPreviousClicked} disabled={isFirstPageShown}>previous</button>
+        <button
+          className="prev-page-btn"
+          onClick={onPreviousClicked}
+          disabled={isFirstPageShown}
+        >
+          previous
+        </button>
         Page {currentPage} of total {pages} Pages
-        <button className="next-page-btn" onClick={onNextClicked} disabled={isLastPageShown}>next</button>
+        <button
+          className="next-page-btn"
+          onClick={onNextClicked}
+          disabled={isLastPageShown}
+        >
+          next
+        </button>
         {(user.userType == "ADMIN" || user.userType == "COMPANY") && (
           <button className="create-btn" onClick={openCreateCouponModal}>
             Create new coupon

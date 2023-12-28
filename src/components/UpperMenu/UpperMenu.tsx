@@ -22,19 +22,22 @@ function UpperMenu() {
   function filterByCategory(category: ICategory) {
     dispatch({ type: ActionType.FilterByCategory, payload: category.id });
     dispatch({ type: ActionType.SetCategoryName, payload: category.name });
+    dispatch({ type: ActionType.Search, payload: "" });
   }
 
   function showAllCoupons() {
     navigate("/");
     dispatch({ type: ActionType.GetCoupons, payload: allCoupons });
     dispatch({ type: ActionType.FilterByCategory, payload: -1 });
-    dispatch({ type: ActionType.SetCategoryName, payload: "All coupons" });
+    dispatch({ type: ActionType.SetCategoryName, payload: "All Coupons" });
+    dispatch({ type: ActionType.Search, payload: "" });
+
   }
 
   return (
     <div className="upper-menu">
       <button onClick={() => showAllCoupons()}>
-        All Coupons ({allCoupons.length})
+        All Coupons
       </button>
       {Categories.map((category) => (
         <button onClick={() => filterByCategory(category)}>
