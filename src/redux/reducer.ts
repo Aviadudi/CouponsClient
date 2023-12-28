@@ -50,24 +50,33 @@ export function reduce(
     case ActionType.GetCompanies:
       newAppState.companies = action.payload;
       break;
-      
+
     case ActionType.FilterByCategory:
-      let coupons = newAppState.allCoupons;
-      let filteredCoupons;
-      if (action.payload) {
-        filteredCoupons = coupons.filter(
-          (coupon) => coupon.categoryName == action.payload
-        );
-      } else {
-        filteredCoupons = coupons;
-      }
-      if (filteredCoupons && filteredCoupons.length == 0) {
-        newAppState.isCouponsToShow = false;
-      } else {
-        newAppState.isCouponsToShow = true;
-      }
-      newAppState.filteredCouponsToShow = filteredCoupons;
+      // let coupons = newAppState.allCoupons;
+      // let filteredCoupons;
+      // if (action.payload) {
+      //   filteredCoupons = coupons.filter(
+      //     (coupon) => coupon.categoryName == action.payload
+      //   );
+      // } else {
+      //   filteredCoupons = coupons;
+      // }
+      // if (filteredCoupons && filteredCoupons.length == 0) {
+      //   newAppState.isCouponsToShow = false;
+      // } else {
+      //   newAppState.isCouponsToShow = true;
+      // }
+      // newAppState.filteredCouponsToShow = filteredCoupons;
+      newAppState.filteredCategory = action.payload;
       break;
+
+    case ActionType.FilterByCompanies:
+      newAppState.filteredCompanies = action.payload;
+      break;
+
+    // case ActionType.FilterBySearch:
+    //   newAppState.searchString = action.payload;
+    //   break;
 
     case ActionType.ShowAllCoupons:
       newAppState.filteredCouponsToShow = newAppState.allCoupons;
@@ -77,20 +86,21 @@ export function reduce(
       break;
 
     case ActionType.Search:
-      let searchInput = action.payload;
-      if (searchInput == "") {
-        newAppState.filteredCouponsToShow = newAppState.allCoupons;
-      } else {
-        let filteredCoupons;
-        filteredCoupons = newAppState.allCoupons.filter(
-          (coupon) =>
-            coupon.name.toLowerCase().includes(searchInput) ||
-            coupon.description.toLowerCase().includes(searchInput) ||
-            coupon.categoryName.toLowerCase().includes(searchInput) ||
-            coupon.companyName.toLowerCase().includes(searchInput)
-        );
-        newAppState.filteredCouponsToShow = filteredCoupons;
-      }
+      // let searchInput = action.payload;
+      // if (searchInput == "") {
+      //   newAppState.filteredCouponsToShow = newAppState.allCoupons;
+      // } else {
+      //   let filteredCoupons;
+      //   filteredCoupons = newAppState.allCoupons.filter(
+      //     (coupon) =>
+      //       coupon.name.toLowerCase().includes(searchInput) ||
+      //       coupon.description.toLowerCase().includes(searchInput) ||
+      //       coupon.categoryName.toLowerCase().includes(searchInput) ||
+      //       coupon.companyName.toLowerCase().includes(searchInput)
+      //   );
+      //   newAppState.filteredCouponsToShow = filteredCoupons;
+      // }
+      newAppState.searchString = action.payload;
       break;
 
     case ActionType.ChangeUser:
@@ -113,7 +123,7 @@ export function reduce(
     // break;
 
     case ActionType.SetCategoryName:
-      newAppState.currentCategory = action.payload;
+      newAppState.currentCategoryName = action.payload;
       break;
 
     case ActionType.SetUserLoggedIn:

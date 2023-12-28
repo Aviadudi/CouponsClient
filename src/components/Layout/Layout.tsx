@@ -25,9 +25,8 @@ function Layout() {
           <Route path="/" element={<CouponsContainer />} />
           <Route path="/account/purchases" element={<Purchases />} />
           <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/users" element={<UsersPage/>}/>
-          <Route path="/account/settings" element={<UserSettings/>}/>
-          {/* <CouponsContainer /> */}
+          <Route path="/users" element={<UsersPage />} />
+          <Route path="/account/settings" element={<UserSettings />} />
         </Routes>
       </main>
 

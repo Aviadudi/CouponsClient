@@ -74,7 +74,7 @@ function Header() {
   }
   function showAllCoupons() {
     navigate("/");
-    dispatch({ type: ActionType.FilterByCategory });
+    dispatch({ type: ActionType.FilterByCategory, payload: -1 });
     dispatch({ type: ActionType.SetCategoryName, payload: "All coupons" });
   }
 

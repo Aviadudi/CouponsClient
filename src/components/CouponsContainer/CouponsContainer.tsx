@@ -8,6 +8,7 @@ import { AppState } from "../../redux/app-state";
 import CouponForAdmin from "../CouponForAdmin/CouponForAdmin";
 import Modal from "react-modal";
 import CreateCoupon from "../CreateCoupon/CreateCoupon";
+import { useNavigate } from "react-router-dom";
 
 function CouponsContainer() {
   const customModalStyles = {
@@ -25,26 +26,58 @@ function CouponsContainer() {
       width: "350px",
     },
   };
+  const navigate = useNavigate();
 
   let dispatch = useDispatch();
   let filteredCoupons = useSelector(
     (state: AppState) => state.filteredCouponsToShow
   );
   let isCouponsToShow = useSelector((state: AppState) => state.isCouponsToShow);
-  let currentCategory = useSelector((state: AppState) => state.currentCategory);
+  let currentCategory = useSelector(
+    (state: AppState) => state.filteredCategory
+  );
+  let currentCategoryName = useSelector(
+    (state: AppState) => state.currentCategoryName
+  );
+  // let currentCategory = useSelector((state: AppState) => state.currentCategory);
+  let searchString = useSelector((state: AppState) => state.searchString);
   let user = useSelector((state: AppState) => state.user);
   let isUserLoggedIn = useSelector((state: AppState) => state.isUserLoggedIn);
   let [isCreateCouponModalOpen, setIsCreateCouponModalOpen] = useState(false);
+  let [currentPage, setCurrentPage] = useState<number>(1);
+  let [pages, setPages] = useState<number>(0);
+  let [isFirstPageShown, setIsFirstPageShown] = useState<boolean>(true);
+  let [isLastPageShown, setIsLastPageShown] = useState<boolean>(pages == 1);
 
   async function fetchCoupons() {
+    // try {
+    //   const response = await axios.get(
+    //     "http://localhost:8080/coupons/accordingUserType"
+    //   );
+    //   const coupons = response.data;
+    //   dispatch({ type: ActionType.GetCoupons, payload: coupons });
+    // } catch (error: any) {
+    //   alert(error.response.data.errorMessage);
+    // }
+
+    // console.log(currentCategory);
+
+    // dispatch({type:ActionType.FilterByCategory, payload: 1});
+debugger;
     try {
       const response = await axios.get(
-        "http://localhost:8080/coupons/accordingUserType"
+        `http://localhost:8080/coupons/byFilters?page=${currentPage}&categoryIds=${currentCategory}`
+        // `http://localhost:8080/coupons/byFilters?page=${currentPage}&categoryIds=${currentCategory}&searchString=${searchString}`
       );
-      const coupons = response.data;
+      console.log(response);
+
+      let coupons = response.data.coupons;
+      setPages(response.data.pages);
+
       dispatch({ type: ActionType.GetCoupons, payload: coupons });
     } catch (error: any) {
-      alert(error.response.data.errorMessage);
+      // alert(error.response.data.errorMessage);
+      alert("hi hi hi");
     }
   }
 
@@ -61,24 +94,59 @@ function CouponsContainer() {
     }
   }
 
-  useEffect(() => {
-    if (isUserLoggedIn) {
-      fetchCoupons();
+  function onPreviousClicked() {
+    if (currentPage > 1) {
+      let previousePage = currentPage -1;
+      setCurrentPage(previousePage);
+      checkPage();
     }
-  }, [user]);
+  }
+
+  function onNextClicked(){
+    if (currentPage < pages){
+      let nextPage = currentPage +1;
+      setCurrentPage(nextPage);
+      checkPage();
+    }
+  }
+  function checkPage(){
+    if (currentPage == 1) {
+      setIsFirstPageShown(true);
+    }else{
+      setIsFirstPageShown(false);
+    }
+
+    if(currentPage == pages){
+      setIsLastPageShown(true);
+    } else{
+      setIsLastPageShown(false);
+    }
+
+  }
+
+  useEffect(() => {
+    setCurrentPage(1);
+  },[currentCategory])
+
+  useEffect(() => {
+    debugger;
+    fetchCoupons();
+    navigate(`?page=${currentPage}`);
+    checkPage();
+  }, [user, currentCategory, currentPage, pages]);
 
   return (
     <div className="couponsContainer">
       <div className="head">
-        <h2 className="category">{currentCategory}</h2>
+        <h2 className="category">{currentCategoryName}</h2>
 
+        <button onClick={onPreviousClicked} disabled={isFirstPageShown}>previous</button>
+        Page {currentPage} of total {pages} Pages
+        <button onClick={onNextClicked} disabled={isLastPageShown}>next</button>
         {(user.userType == "ADMIN" || user.userType == "COMPANY") && (
-        <button
-          className="create-btn"
-          onClick={openCreateCouponModal}
-        >
-          Create new coupon
-        </button>
+          <button className="create-btn" onClick={openCreateCouponModal}>
+            Create new coupon
+          </button>
         )}
       </div>
 

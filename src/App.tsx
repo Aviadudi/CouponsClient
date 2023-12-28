@@ -15,13 +15,13 @@ function App() {
   let user = useSelector((state: AppState) => state.user);
 
   async function fetchCoupons() {
-    try {
-      const response = await axios.get("http://localhost:8080/coupons");
-      const coupons = response.data;
-      dispatch({ type: ActionType.GetCoupons, payload: coupons });
-    } catch (error: any) {
-      alert(error.response.data.errorMessage);
-    }
+    // try {
+    //   const response = await axios.get("http://localhost:8080/coupons");
+    //   const coupons = response.data;
+    //   dispatch({ type: ActionType.GetCoupons, payload: coupons });
+    // } catch (error: any) {
+    //   alert(error.response.data.errorMessage);
+    // }
   }
 
   async function fetchCategories() {
@@ -61,13 +61,11 @@ function App() {
       getUserData();
       dispatch({ type: ActionType.SetUserLoggedIn, payload: true });
     }
-    if (!isUserLoggedIn) {
-      fetchCoupons();
-    }
     if (isUserLoggedIn && user.userType === "ADMIN") {
       fetchCopanies();
     }
     fetchCategories();
+    fetchCoupons();
   }, [user]);
 
   return (

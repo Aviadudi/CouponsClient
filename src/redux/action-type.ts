@@ -3,6 +3,8 @@ export enum ActionType {
   GetCategories,
   GetCompanies,
   FilterByCategory,
+  FilterByCompanies,
+  FilterBySearch,
   ShowAllCoupons,
   Search,
   ChangeUser,

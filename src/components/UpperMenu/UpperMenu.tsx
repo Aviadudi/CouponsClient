@@ -4,6 +4,7 @@ import "./UpperMenu.css";
 import { AppState } from "../../redux/app-state";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { ICategory } from "../../models/ICategory";
 
 function UpperMenu() {
   let dispatch = useDispatch();
@@ -11,19 +12,22 @@ function UpperMenu() {
   let couponsToShow = useSelector(
     (state: AppState) => state.filteredCouponsToShow
   );
+  let allCategories = useSelector((state: AppState) => state.categories);
+
   
   let Categories = useSelector((state: AppState) => state.categories);
   let navigate = useNavigate();
 
 
-  function filterByCategory(category: string) {
-    dispatch({ type: ActionType.FilterByCategory, payload: category });
-    dispatch({ type: ActionType.SetCategoryName, payload: category });
+  function filterByCategory(category: ICategory) {
+    dispatch({ type: ActionType.FilterByCategory, payload: category.id });
+    dispatch({ type: ActionType.SetCategoryName, payload: category.name });
   }
 
   function showAllCoupons() {
     navigate("/");
     dispatch({ type: ActionType.GetCoupons, payload: allCoupons });
+    dispatch({ type: ActionType.FilterByCategory, payload: -1 });
     dispatch({ type: ActionType.SetCategoryName, payload: "All coupons" });
   }
 
@@ -33,7 +37,7 @@ function UpperMenu() {
         All Coupons ({allCoupons.length})
       </button>
       {Categories.map((category) => (
-        <button onClick={() => filterByCategory(category.name)}>
+        <button onClick={() => filterByCategory(category)}>
           {category.name}
         </button>
       ))}
