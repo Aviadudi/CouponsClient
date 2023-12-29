@@ -8,6 +8,7 @@ import Purchases from "../Purchases/Purchases";
 import AboutUs from "../About/AboutUs";
 import UsersPage from "../UsersPage/UsersPage";
 import UserSettings from "../UserSettings/UserSettings";
+import CompaniesPage from "../CompaniesPage/CompaniesPage";
 
 function Layout() {
   return (
@@ -27,6 +28,8 @@ function Layout() {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/account/settings" element={<UserSettings />} />
+          <Route path="/companies" element={<CompaniesPage />} />
+
         </Routes>
       </main>
 

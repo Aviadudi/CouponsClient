@@ -29,12 +29,12 @@ Modal.setAppElement("#root");
 
 function Header() {
   let [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  let isLoginSucceeded = useSelector((state:AppState)=>state.isUserLoggedIn);
+  let isLoginSucceeded = useSelector((state: AppState) => state.isUserLoggedIn);
   // let [isLoginSucceeded, setIsLoginSucceeded] = useState(false);
   let [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   let [isSignUpSucceeded, setIsSignUpSucceeded] = useState(false);
   let user = useSelector((state: AppState) => state.user);
-  let searchInput = useSelector((state:AppState) => state.searchInput);
+  let searchInput = useSelector((state: AppState) => state.searchInput);
   const navigate = useNavigate();
 
   let dispatch = useDispatch();
@@ -56,7 +56,6 @@ function Header() {
   }
 
   function onLogoutClicked() {
-    
     // setIsLoginSucceeded(false);
     // dispatch({type: ActionType.SetUserLoggedIn, payload: false});
     localStorage.removeItem("token");
@@ -95,7 +94,6 @@ function Header() {
   //   }
   // }
 
-
   return (
     <section>
       {/* site name */}
@@ -128,10 +126,7 @@ function Header() {
         onRequestClose={closeLoginModal}
         style={customModalStyles}
       >
-        <Login
-          closeLoginModal={closeLoginModal}
-
-        />
+        <Login closeLoginModal={closeLoginModal} />
       </Modal>
 
       {/* SignUp button open modal with "SignUp" component */}
@@ -172,16 +167,18 @@ function Header() {
           <div className="dropdown-content">
             {user.userType === "CUSTOMER" && (
               <div>
-              <button
-                className="dropbtn-option"
-                onClick={() => navigate("/account/purchases")}
-              >
-                My purchases
-              </button>
-              <button className="dropbtn-option"
-              onClick={()=>navigate("/account/settings")}>
-                Settings
-              </button>
+                <button
+                  className="dropbtn-option"
+                  onClick={() => navigate("/account/purchases")}
+                >
+                  My purchases
+                </button>
+                <button
+                  className="dropbtn-option"
+                  onClick={() => navigate("/account/settings")}
+                >
+                  Settings
+                </button>
               </div>
             )}
             {user.userType !== "CUSTOMER" && (
@@ -190,6 +187,14 @@ function Header() {
                 onClick={() => navigate("/users")}
               >
                 Users
+              </button>
+            )}
+            {user.userType == "ADMIN" && (
+              <button
+                className="dropbtn-option"
+                onClick={() => navigate("/companies")}
+              >
+                Companies
               </button>
             )}
             <button className="dropbtn-option" onClick={onLogoutClicked}>

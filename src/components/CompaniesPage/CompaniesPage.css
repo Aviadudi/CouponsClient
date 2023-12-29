@@ -1,0 +1,21 @@
+.companies-page td{
+    min-width: 100px;
+    padding: 5px 20px;
+    max-width: 500px;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.input-name,
+.input-email,
+.input-address,
+.input-phone{
+    width: max-content;
+    min-width: 120px;
+    padding: 0;
+}
+
+.companies-table-header{
+    font-weight: 700;
+}

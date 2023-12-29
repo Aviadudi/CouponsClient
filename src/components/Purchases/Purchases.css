@@ -5,7 +5,7 @@
     margin: 10px;
 }
 
-td{
+.purchases td{
     border: 1px solid black;
     min-width: 100px;
     padding: 5px 20px;

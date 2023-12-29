@@ -34,7 +34,7 @@ function App() {
     }
   }
 
-  async function fetchCopanies() {
+  async function fetchCompanies() {
     try {
       const response = await axios.get("http://localhost:8080/companies");
       const companies = response.data;
@@ -62,7 +62,7 @@ function App() {
       dispatch({ type: ActionType.SetUserLoggedIn, payload: true });
     }
     if (isUserLoggedIn && user.userType === "ADMIN") {
-      fetchCopanies();
+      fetchCompanies();
     }
     fetchCategories();
     fetchCoupons();
