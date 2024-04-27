@@ -3,17 +3,10 @@ import { ActionType } from "../../redux/action-type";
 import "./UpperMenu.css";
 import { AppState } from "../../redux/app-state";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { ICategory } from "../../models/ICategory";
 
 function UpperMenu() {
   let dispatch = useDispatch();
-  let allCoupons = useSelector((state: AppState) => state.allCoupons);
-  let couponsToShow = useSelector(
-    (state: AppState) => state.filteredCouponsToShow
-  );
-  let allCategories = useSelector((state: AppState) => state.categories);
-
   
   let Categories = useSelector((state: AppState) => state.categories);
   let navigate = useNavigate();
@@ -27,7 +20,6 @@ function UpperMenu() {
 
   function showAllCoupons() {
     navigate("/");
-    dispatch({ type: ActionType.GetCoupons, payload: allCoupons });
     dispatch({ type: ActionType.FilterByCategory, payload: -1 });
     dispatch({ type: ActionType.SetCategoryName, payload: "All Coupons" });
     dispatch({ type: ActionType.Search, payload: "" });

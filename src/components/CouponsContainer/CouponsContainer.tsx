@@ -9,6 +9,8 @@ import CouponForAdmin from "../CouponForAdmin/CouponForAdmin";
 import Modal from "react-modal";
 import CreateCoupon from "../CreateCoupon/CreateCoupon";
 import { useNavigate } from "react-router-dom";
+import RangeSlider from "rsuite/RangeSlider";
+import "rsuite/dist/rsuite.css";
 
 function CouponsContainer() {
   const customModalStyles = {
@@ -21,8 +23,7 @@ function CouponsContainer() {
       transform: "translate(-50%, -50%)",
       boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
       borderRadius: "20px",
-      // height: "420px",
-      height: "620px",
+      height: "550px",
       width: "350px",
     },
   };
@@ -39,7 +40,6 @@ function CouponsContainer() {
   let currentCategoryName = useSelector(
     (state: AppState) => state.currentCategoryName
   );
-  // let currentCategory = useSelector((state: AppState) => state.currentCategory);
   let searchInput = useSelector((state: AppState) => state.searchInput);
   let user = useSelector((state: AppState) => state.user);
   let isUserLoggedIn = useSelector((state: AppState) => state.isUserLoggedIn);
@@ -48,40 +48,21 @@ function CouponsContainer() {
   let [pages, setPages] = useState<number>(0);
   let [isFirstPageShown, setIsFirstPageShown] = useState<boolean>(true);
   let [isLastPageShown, setIsLastPageShown] = useState<boolean>(pages == 1);
+  let [minPrice, setMinPrice] = useState<number>(0);
+  let [maxPrice, setMaxPrice] = useState<number>(0);
+  let [selectedMinPrice, setSelectedMinPrice] = useState(0);
+  let [selectedMaxPrice, setSelectedMaxPrice] = useState(0);
 
   async function fetchCoupons() {
-    // try {
-    //   const response = await axios.get(
-    //     "http://localhost:8080/coupons/accordingUserType"
-    //   );
-    //   const coupons = response.data;
-    //   dispatch({ type: ActionType.GetCoupons, payload: coupons });
-    // } catch (error: any) {
-    //   alert(error.response.data.errorMessage);
-    // }
-
-    // console.log(currentCategory);
-
-    // dispatch({type:ActionType.FilterByCategory, payload: 1});
-    debugger;
     try {
       const response = await axios.get(
-        // `http://localhost:8080/coupons/byFilters?page=${currentPage}&categoryIds=${currentCategory}`
-        `http://localhost:8080/coupons/byFilters?page=${currentPage}&categoryIds=${currentCategory}&searchInput=${searchInput}`
+        `http://localhost:8080/coupons/byFilters?page=${currentPage}&categoryIds=${currentCategory}&searchInput=${searchInput}&minPrice=${selectedMinPrice}&maxPrice=${selectedMaxPrice}`
       );
-
       let coupons = response.data.content;
       setPages(response.data.totalPages);
-
-
-
-      // let coupons = response.data.coupons;
-      // setPages(response.data.pages);
-
       dispatch({ type: ActionType.GetCoupons, payload: coupons });
     } catch (error: any) {
       alert(error.response.data.errorMessage);
-      // alert("hi hi hi");
     }
   }
 
@@ -89,12 +70,16 @@ function CouponsContainer() {
     setIsCreateCouponModalOpen(true);
   }
 
-  function closeCreateCouponModal() {
-    let confirmClose = window.confirm(
-      "Are you sure you want to close this window? all the information will be deleted. \nYou can save the coupon with the amount of 0 and update or delete it later"
-    );
-    if (confirmClose) {
+  function closeCreateCouponModal(confirm?: boolean) {
+    if (confirm) {
       setIsCreateCouponModalOpen(false);
+    } else {
+      confirm = window.confirm(
+        "Are you sure you want to close this window? all the information will be deleted. \nYou can save the coupon with the amount of 0 and update or delete it later"
+      );
+      if (confirm) {
+        setIsCreateCouponModalOpen(false);
+      }
     }
   }
 
@@ -102,7 +87,6 @@ function CouponsContainer() {
     if (currentPage > 1) {
       let previousePage = currentPage - 1;
       setCurrentPage(previousePage);
-      checkPage();
     }
   }
 
@@ -110,7 +94,6 @@ function CouponsContainer() {
     if (currentPage < pages) {
       let nextPage = currentPage + 1;
       setCurrentPage(nextPage);
-      checkPage();
     }
   }
   function checkPage() {
@@ -127,36 +110,72 @@ function CouponsContainer() {
     }
   }
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [currentCategory]);
+  async function handleRangesChanges(selectedPrices: any) {
+    setSelectedMinPrice(selectedPrices[0]);
+    setSelectedMaxPrice(selectedPrices[1]);
+  }
+
+  async function getMinMaxPrices() {
+    try {
+      const minResponse = await axios.get(
+        "http://localhost:8080/coupons/minPrice"
+      );
+      const maxResponse = await axios.get(
+        "http://localhost:8080/coupons/maxPrice"
+      );
+
+      setMinPrice(minResponse.data);
+      setMaxPrice(maxResponse.data);
+
+      setSelectedMinPrice(minResponse.data);
+      setSelectedMaxPrice(maxResponse.data);
+    } catch (error: any) {
+      console.error(
+        "Error fetching min/max prices:",
+        error.response.data.errorMessage
+      );
+    }
+  }
 
   useEffect(() => {
-    debugger;
+    setCurrentPage(1);
+  }, [user, currentCategory]);
+
+  useEffect(() => {
+    getMinMaxPrices();
+  }, []);
+
+  useEffect(() => {
     fetchCoupons();
     navigate(`?page=${currentPage}`);
     checkPage();
-  }, [user, currentCategory, currentPage, pages, searchInput]);
+  }, [user, currentCategory, currentPage, pages, searchInput, isUserLoggedIn]);
+  useEffect(() => {
+    let timeOutId = setTimeout(() => {
+      setCurrentPage(1);
+      fetchCoupons();
+      navigate(`?page=${currentPage}`);
+      checkPage();
+    }, 500);
+    return () => clearTimeout(timeOutId);
+  }, [selectedMinPrice, selectedMaxPrice]);
 
   return (
     <div className="couponsContainer">
       <div className="head">
         <h2 className="category">{currentCategoryName}</h2>
-        <button
-          className="prev-page-btn"
-          onClick={onPreviousClicked}
-          disabled={isFirstPageShown}
-        >
-          previous
-        </button>
-        Page {currentPage} of total {pages} Pages
-        <button
-          className="next-page-btn"
-          onClick={onNextClicked}
-          disabled={isLastPageShown}
-        >
-          next
-        </button>
+        {user.userType == "CUSTOMER" && (
+          <div className="price-filter">
+            <p>Filter by price: </p>
+            <RangeSlider
+              className="price-slider"
+              onChange={handleRangesChanges}
+              value={[selectedMinPrice, selectedMaxPrice]}
+              min={minPrice}
+              max={maxPrice}
+            />
+          </div>
+        )}
         {(user.userType == "ADMIN" || user.userType == "COMPANY") && (
           <button className="create-btn" onClick={openCreateCouponModal}>
             Create new coupon
@@ -166,7 +185,7 @@ function CouponsContainer() {
 
       <Modal
         isOpen={isCreateCouponModalOpen}
-        onRequestClose={closeCreateCouponModal}
+        onRequestClose={() => closeCreateCouponModal()}
         style={customModalStyles}
       >
         <CreateCoupon
@@ -196,7 +215,7 @@ function CouponsContainer() {
           />
         ))}
 
-      {user.userType === "ADMIN" &&
+      {(user.userType === "ADMIN" || user.userType === "COMPANY") &&
         filteredCoupons.map((coupon) => (
           <CouponForAdmin
             key={coupon.id}
@@ -216,26 +235,26 @@ function CouponsContainer() {
           />
         ))}
 
-      {user.userType === "COMPANY" &&
-        filteredCoupons.map((coupon) => (
-          <CouponForAdmin
-            key={coupon.id}
-            fetchCoupons={fetchCoupons}
-            id={coupon.id}
-            name={coupon.name}
-            description={coupon.description}
-            startDate={coupon.startDate}
-            endDate={coupon.endDate}
-            amount={coupon.amount}
-            categoryName={coupon.categoryName}
-            categoryId={coupon.categoryId}
-            companyName={coupon.companyName}
-            companyId={coupon.companyId}
-            imageData={coupon.imageData}
-            price={coupon.price}
-          />
-        ))}
-      {!isCouponsToShow && <h1>No Coupons To Show</h1>}
+      {!isCouponsToShow && <h3>No Coupons To Show</h3>}
+      {isCouponsToShow && (
+        <div>
+          <button
+            className="prev-page-btn"
+            onClick={onPreviousClicked}
+            disabled={isFirstPageShown}
+          >
+            previous
+          </button>
+          Page {currentPage} of total {pages} Pages
+          <button
+            className="next-page-btn"
+            onClick={onNextClicked}
+            disabled={isLastPageShown}
+          >
+            next
+          </button>
+        </div>
+      )}
     </div>
   );
 }

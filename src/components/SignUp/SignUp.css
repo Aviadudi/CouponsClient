@@ -7,8 +7,7 @@
     margin-bottom: 30px;
     text-align: center;
 }
-.SignUp > button {
-  /* display: inline-block; */
+.SignUp  button {
   font-size: 15px;
   border-radius: 20px;
   cursor: pointer;
@@ -45,7 +44,7 @@ margin-bottom: 10px;
   margin-left: 155px;
 }
 
-.SignUp > input {
+.SignUp  input {
   border: none;
   border-bottom: 1px solid black;
   text-underline-offset: 3px;
@@ -54,7 +53,7 @@ margin-bottom: 10px;
   margin-bottom: 5px;
 }
 
-.SignUp > input:focus{
+.SignUp  input:focus{
     outline: none;
     background-color: rgb(243, 243, 243);
 }
@@ -76,4 +75,8 @@ margin-bottom: 10px;
   color: white;
   cursor: pointer;
   padding: 5px;
+}
+
+.password-requirements{
+  font-size: 12px;
 }

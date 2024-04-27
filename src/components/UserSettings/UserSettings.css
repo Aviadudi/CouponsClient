@@ -1,8 +1,35 @@
 .user-settings{
     min-height: 100px;
-    
+  display: inline-block;
+  padding-top: 20px;
 }
 
 .user-settings td,tr{
     border: none;
+}
+
+.password-input{
+    margin-right: 10px;
+}
+
+.new-password{
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.save-btn{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+    background-color: #2667bb;
+    color: white;
+    border: 1px solid #2667bb;
+    font-size: 14px;
+}
+
+.show-pass{
+    background-color: transparent;
+    margin-right: 10px;
 }

@@ -1,5 +1,4 @@
 .users-table {
-  /* display: inline-block; */
   border-collapse: collapse;
 }
 
@@ -33,4 +32,40 @@
 
 .create-user-btn{
   display: inline-block;
+}
+
+.editing-row .save-btn, .cancel-btn, .change-btn, .edit-btn,.create-user-btn{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+    color: #2667bb;
+    background-color: transparent;
+    border: 1px solid #2667bb;
+    font-size: 14px;
+    margin: 0;
+}
+.create-user-btn{
+  margin: 10px 0;
+  color: white;
+  background-color: #2667bb;
+}
+.users-page input {
+  border: none;
+  border-bottom: 1px solid black;
+  text-underline-offset: 3px;
+  padding: 3px;
+  font-size: 15px;
+  background-color: rgb(243, 243, 243);
+}
+
+.users-page input:focus {
+  outline: none;
+  background-color: rgb(243, 243, 243);
+}
+
+.users-page input:hover {
+  outline: none;
+  background-color: rgb(243, 243, 243);
 }

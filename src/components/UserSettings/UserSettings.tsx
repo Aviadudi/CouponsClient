@@ -8,12 +8,21 @@ import axios from "axios";
 function UserSettings() {
   let user = useSelector((state: AppState) => state.user);
   let [newPassword, setNewPassword] = useState("");
+  let [passwordType, setPasswordType] = useState("password");
+  let [isValidPassword, setIsValidPassword] = useState<boolean>(false);
+  let passwordPattern = useSelector((state: AppState) => state.passwordPattern);
 
   function onNewPasswordChanged(event: any) {
-    setNewPassword(event.target.value);
+    let enteredNewPassword = event.target.value;
+    if (passwordPattern.test(enteredNewPassword)) {
+      setIsValidPassword(true);
+    } else {
+      setIsValidPassword(false);
+    }
+    setNewPassword(enteredNewPassword);
   }
 
-  async function onSavePasswordClickd(event: any) {
+  async function onSavePasswordClickd() {
     let editedUser: IUserData = user;
     editedUser = { ...editedUser, password: newPassword };
     let response = await saveEditedUser(editedUser);
@@ -35,22 +44,54 @@ function UserSettings() {
     }
   }
 
+  function onShowPasswordClicked() {
+    if (passwordType == "text") {
+      setPasswordType("password");
+      return;
+    }
+    setPasswordType("text");
+  }
+
   return (
     <div className="user-settings">
       <table>
         <tr>
-          <td>New Password</td>
+          <td>
+            <span className="new-password">New Password:</span>
+          </td>
           <td>
             <input
-              type="text"
+              className="password-input"
+              type={passwordType}
               placeholder="Enter new Password"
               value={newPassword}
               onChange={onNewPasswordChanged}
             />
+            <button className="show-pass" onClick={onShowPasswordClicked}>
+              <img
+                src={require(`../../images/show-password-16.png`)}
+                alt="show"
+              />
+            </button>
           </td>
           <td>
-            <button onClick={onSavePasswordClickd}>Save</button>
+            <button className="save-btn" onClick={onSavePasswordClickd}>
+              Save
+            </button>
           </td>
+        </tr>
+        <tr>
+          <td></td>
+          {!isValidPassword && newPassword != "" && (
+            <td>
+              <p>
+                • Password must be 8-12 characters long,
+                <br />• one digit (0-9),
+                <br />• one lowercase letter (a-z),
+                <br />• one uppercase letter (A-Z)
+              </p>
+            </td>
+          )}
         </tr>
       </table>
     </div>

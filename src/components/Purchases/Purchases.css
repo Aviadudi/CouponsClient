@@ -12,7 +12,7 @@
     max-width: 500px;
 }
 
-.purchases-header td{
+.purchases-table-header td{
     font-weight: bold;
     border: 2.5px solid black;
     border-collapse: separate;
@@ -31,4 +31,8 @@
     border-bottom: 4px solid black;
     border-collapse: collapse;
     padding: 0 10px;
+}
+
+.purchases-title{
+    margin-top: 20px;
 }

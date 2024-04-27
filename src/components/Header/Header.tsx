@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Header.css";
 import Modal from "react-modal";
 import Login from "../Login/Login";
@@ -6,13 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ActionType } from "../../redux/action-type";
 import SignUp from "../SignUp/SignUp";
 import { IUserData } from "../../models/IUserData";
-import User from "../User/User";
-import jwtDecode from "jwt-decode";
 import { AppState } from "../../redux/app-state";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const customModalStyles = {
+const customSignUpModalStyles = {
   content: {
     top: "50%",
     left: "50%",
@@ -22,21 +20,33 @@ const customModalStyles = {
     transform: "translate(-50%, -50%)",
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
     borderRadius: "45px",
-    height: "270px",
+    height: "330px",
+    width: "360px"
   },
 };
+const customLoginModalStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+    borderRadius: "45px",
+    height: "250px",
+  },
+};
+
 Modal.setAppElement("#root");
 
 function Header() {
   let [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   let isLoginSucceeded = useSelector((state: AppState) => state.isUserLoggedIn);
-  // let [isLoginSucceeded, setIsLoginSucceeded] = useState(false);
   let [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
-  let [isSignUpSucceeded, setIsSignUpSucceeded] = useState(false);
   let user = useSelector((state: AppState) => state.user);
   let searchInput = useSelector((state: AppState) => state.searchInput);
   const navigate = useNavigate();
-
   let dispatch = useDispatch();
 
   function openLoginModal() {
@@ -56,8 +66,6 @@ function Header() {
   }
 
   function onLogoutClicked() {
-    // setIsLoginSucceeded(false);
-    // dispatch({type: ActionType.SetUserLoggedIn, payload: false});
     localStorage.removeItem("token");
     let user: IUserData = {
       id: 0,
@@ -85,15 +93,7 @@ function Header() {
     dispatch({ type: ActionType.FilterByCategory, payload: -1 });
     dispatch({ type: ActionType.SetCategoryName, payload: "All Coupons" });
   }
-
-  // function showUsername() {
-  //   if (user.username != "") {
-  //     return "Hi, " + user.username;
-  //   } else {
-  //     return "";
-  //   }
-  // }
-
+  
   return (
     <section>
       {/* site name */}
@@ -110,9 +110,6 @@ function Header() {
         onChange={(event) => search(event.target.value)}
       />
 
-      {/* shows user name after successful login*/}
-      {/* {<div className="user-name"> {showUsername()}</div>} */}
-
       {/* login button open modal with "Login" component */}
       {!isLoginSucceeded && (
         <button className="login-button" onClick={openLoginModal}>
@@ -124,7 +121,7 @@ function Header() {
       <Modal
         isOpen={isLoginModalOpen}
         onRequestClose={closeLoginModal}
-        style={customModalStyles}
+        style={customLoginModalStyles}
       >
         <Login closeLoginModal={closeLoginModal} />
       </Modal>
@@ -140,7 +137,7 @@ function Header() {
       <Modal
         isOpen={isSignUpModalOpen}
         onRequestClose={closeSignUpModal}
-        style={customModalStyles}
+        style={customSignUpModalStyles}
       >
         <SignUp closeSignupModal={closeSignUpModal} />
       </Modal>
@@ -203,22 +200,6 @@ function Header() {
           </div>
         </div>
       )}
-      {/* {isLoginSucceeded && (
-        <button
-          className="logout-button"
-          onClick={onLogoutClicked}
-        >
-          Logout
-        </button>
-      )}
-      {isLoginSucceeded && (
-        <button
-          className="my-purchases-button"
-        onClick={()=>navigate('/purchases')}
-        >
-          My Purchases
-        </button>
-      )} */}
     </section>
   );
 }

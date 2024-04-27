@@ -3,8 +3,6 @@ import { ICoupon } from "../../models/ICoupon";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "../../redux/app-state";
 import Modal from "react-modal";
 import CreateCoupon from "../CreateCoupon/CreateCoupon";
 import Coupon from "../Coupon/Coupon";
@@ -20,13 +18,12 @@ function CouponForAdmin(props: ICoupon) {
       transform: "translate(-50%, -50%)",
       boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
       borderRadius: "20px",
-      // height: "420px",
-      height: "610px",
+      height: "550px",
       width: "350px",
     },
   };
   const customPreviewModalStyles = {
-    content:{
+    content: {
       top: "50%",
       left: "50%",
       right: "auto",
@@ -35,25 +32,14 @@ function CouponForAdmin(props: ICoupon) {
       transform: "translate(-50%, -50%)",
       boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
       borderRadius: "20px",
-      // height: "610px",
-      // width: "350px",
       padding: "0",
-    }
-  }
+    },
+  };
   Modal.setAppElement("#root");
 
   let [isCouponAvailable, setIsCouponAvailable] = useState(true);
-  let isUserLoggedIn = useSelector((state: AppState) => state.isUserLoggedIn);
   let [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   let [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
-  let [name, setName] = useState("");
-  let [description, setdescription] = useState("");
-  let [startDate, setStartDate] = useState("");
-  let [endDate, setEndDate] = useState("");
-  let [amount, setAmount] = useState(0);
-  let [categoryId, setCategoryId] = useState(-1);
-  let [price, setPrice] = useState(0);
-  let categories = useSelector((state: AppState) => state.categories);
 
   async function onDeleteClicked() {
     let confirmDelete = window.confirm(
@@ -82,41 +68,24 @@ function CouponForAdmin(props: ICoupon) {
     setIsUpdateModalOpen(true);
   }
 
-  function closeUpdateModal() {
-    let confirmClose = window.confirm(
-      "Are you sure you want to close this window? all the information will be deleted"
-    );
-    if (confirmClose) {
+  function closeUpdateModal(confirm?: boolean) {
+    if (confirm) {
       setIsUpdateModalOpen(false);
+    } else {
+      let confirmClose = window.confirm(
+        "Are you sure you want to close this window? all the information will be deleted"
+      );
+      if (confirmClose) {
+        setIsUpdateModalOpen(false);
+      }
     }
   }
 
-  function onPreviewClicked(){
+  function onPreviewClicked() {
     setIsPreviewModalOpen(true);
   }
   function closePreviewModal() {
     setIsPreviewModalOpen(false);
-  }
-
-  async function onModalUpdateClicked() {
-    let coupon = {
-      id: props.id,
-      name: name,
-      description: description,
-      startDate: startDate,
-      endDate: endDate,
-      amount: amount,
-      categoryId: categoryId,
-      price: price,
-    };
-    // try {
-    //   const response = await axios.put("http://localhost:8080/coupons", coupon);
-    //   alert("Succeess! Coupon updated successfully!");
-    //   props.fetchCoupons();
-    // } catch (error: any) {
-    //   alert(error.response.data.errorMessage);
-    // }
-    closeUpdateModal();
   }
 
   function isCouponAvailableCheck() {
@@ -129,29 +98,13 @@ function CouponForAdmin(props: ICoupon) {
     }
   }
 
-  // function onCategorySelectChange(event){
-
-  // }
-
   useEffect(() => {
     isCouponAvailableCheck();
   });
-  useEffect(() => {
-    setName(props.name);
-    setdescription(props.description);
-    setStartDate(props.startDate);
-    setEndDate(props.endDate);
-    setAmount(props.amount);
-    for (let index = 0; index < categories.length; index++) {
-      if (categories[index].name === props.categoryName)
-        setCategoryId(categories[index].id);
-    }
-    setPrice(props.price);
-  }, []);
+
 
   function formatDate(date: string): string {
     const formattedDate = moment(date);
-    // const formattedDateString = formattedDate.format("DD-MM-YYYY");
     const formattedDateString = formattedDate.format("YYYY-MM-DD");
     return formattedDateString;
   }
@@ -193,16 +146,20 @@ function CouponForAdmin(props: ICoupon) {
           This coupon is available for sell
         </div>
       )}
-      <button className="update-btn" onClick={onUpdateClicked}>update</button>
+      <button className="update-btn" onClick={onUpdateClicked}>
+        update
+      </button>
       <button className="delete-btn" onClick={onDeleteClicked}>
         delete
       </button>
-      <button className="preview-btn" onClick={onPreviewClicked}>preview</button>
+      <button className="preview-btn" onClick={onPreviewClicked}>
+        preview
+      </button>
 
       {/* update coupon modal */}
       <Modal
         isOpen={isUpdateModalOpen}
-        onRequestClose={closeUpdateModal}
+        onRequestClose={()=>closeUpdateModal}
         style={customUpdateModalStyles}
       >
         <CreateCoupon

@@ -1,30 +1,45 @@
-/* .create-modal{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: min-content;
-} */
-
-/* .edit-coupon-title, .coupon-data, .coupon-title {
-  grid-column: span 2;
-} */
-
-.modal-create-btn{
-
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 25px;
-    padding-right: 25px;
-    border-radius: 20px;
-    background-color: transparent;
-    border: 1px solid #2667bb;
-    font-size: 14px;
-    display: block;
-    margin-top: 30px;
-    margin-left: 110px;
+.create-modal {
+  color: black;
+}
+.modal-create-btn {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 20px;
+  background-color: transparent;
+  border: 1px solid #2667bb;
+  font-size: 14px;
+  display: block;
+  margin-top: 30px;
+  margin-left: 110px;
 }
 
-.modal-create-btn:hover{
-    background-color: #2667bb;
-    color: white;
-    cursor: pointer;
+.modal-create-btn:hover {
+  background-color: #2667bb;
+  color: white;
+  cursor: pointer;
+}
+
+.create-modal td {
+  padding: 0 10px;
+}
+
+.add-image {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.modal-close-button:hover{
+    color: #2667bb;
+    background-color: transparent;
+    font-weight: 700;
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+}
+
+.modal-close-button{
+    height: 40px;
+    width: 40px;
 }

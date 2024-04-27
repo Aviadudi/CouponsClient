@@ -52,7 +52,6 @@
   font-size: 14px;
 }
 
-/* .delete-btn:hover:not(:disabled), */
 .update-btn:hover, .delete-btn:hover, .preview-btn:hover {
   background-color: #2667bb;
   color: white;
@@ -119,10 +118,6 @@ label {
   margin-bottom: 3px;
 }
 .edit-number {
-  /* background-color: rgb(243, 243, 243); */
-  /* margin-left: 90px; */
-  /* margin-top: 10px; */
-  /* text-align: center; */
   width: 100px;
   border-radius: 4px;
   border: solid black;

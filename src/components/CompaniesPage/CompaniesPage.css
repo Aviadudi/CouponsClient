@@ -19,3 +19,22 @@
 .companies-table-header{
     font-weight: 700;
 }
+
+.create-btn, .save-btn, .cancel-btn{
+    /* margin: 10px 0; */
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+    color: #2667bb;
+    background-color: transparent;
+    border: 1px solid #2667bb;
+    font-size: 14px;
+}
+
+.create-btn{
+    color: white;
+    background-color: #2667bb;
+    margin: 10px 0;
+}

@@ -2,15 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/app-state";
-import { error } from "console";
 import { IUserData } from "../../models/IUserData";
 import "./UsersPage.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { wait } from "@testing-library/user-event/dist/utils";
-import { render } from "react-dom";
 import Modal from "react-modal";
-import SignUp from "../SignUp/SignUp";
 import SignUpForAdmin from "../SignUpForAdmin/SignUpForAdmin";
 
 const customModalStyles = {
@@ -23,7 +19,6 @@ const customModalStyles = {
     transform: "translate(-50%, -50%)",
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
     borderRadius: "20px",
-    // height: "420px",
     height: "350px",
     width: "350px",
   },
@@ -37,12 +32,6 @@ function UsersPage() {
   let companies = useSelector((state: AppState) => state.companies);
   let [isEditing, setIsEditing] = useState(false);
   let [isChangingPassword, setIsChangingPassword] = useState(false);
-  // let [editedUser, setEditedUser] = useState<IUserData>();
-  // let [editedName, setEditedName] = useState(currentUser.username);
-  // let [editedEmail, setEditedEmail] = useState(currentUser.email);
-  // let [editedPassword, setEditedPassword] = useState("");
-  // let [editedUserType, setEditedUserType] = useState(currentUser.userType);
-  // let [editedCompanyId, setEditedCompanyId] = useState(0);
   let [editedUser, setEditedUser] = useState<IUserData>({
     id: 0,
     username: "",
@@ -55,15 +44,7 @@ function UsersPage() {
   let [isCompany, setIsCompany] = useState(false);
   let userTypes = ["ADMIN", "COMPANY", "CUSTOMER"];
   let [isCreatingNewUser, setIsCreatingNewUser] = useState(false);
-
-  // let editedUser: IUserData = {
-  // id: 0,
-  // username: "",
-  // userType: "",
-  // email: "",
-  // password: "",
-  // companyId: 0,
-  // };
+  let [passwordType, setPasswordType] = useState("password");
 
   async function fetchUsers() {
     try {
@@ -87,37 +68,18 @@ function UsersPage() {
   }
 
   function onEditClick(user: IUserData) {
-
     console.log(editedUser);
     initializeEditedUserData("EDIT", user);
     setIsEditing(true);
     setIsChangingPassword(false);
     console.log(editedUser);
-    // let initialEditedUser: IUserData = {
-    //   id: user.id,
-    //   userType: user.userType,
-    //   username: user.username,
-    //   email: user.email,
-    //   password: "",
-    //   companyId: user.companyId,
-    // };
-    // setEditedUser(initialEditedUser);
   }
 
   function onCancleClickd() {
     initializeEditedUserData();
     setIsEditing(false);
     setIsChangingPassword(false);
-
-    // let initialEditedUser: IUserData = {
-    //   id: 0,
-    //   username: "",
-    //   userType: "",
-    //   email: "",
-    //   password: "",
-    //   companyId: 0,
-    // };
-    // setEditedUser(initialEditedUser);
+    setPasswordType("password");
   }
 
   function onChangePasswordClickd(user: IUserData) {
@@ -149,23 +111,18 @@ function UsersPage() {
         companyId: 0,
       };
     }
-    console.log(editedUser);
     setEditedUser(initialEditedUser);
-    console.log(editedUser);
   }
 
   function onTypeChanged(event: any) {
-
     let userType: string = event.target.value;
     let companyId: number;
-    console.log(editedUser);
     if (event.target.value == "COMPANY") {
       companyId = companies[0].id;
     } else {
       companyId = 0;
     }
     setEditedUser({ ...editedUser, userType: userType, companyId: companyId });
-    console.log(editedUser);
   }
 
   function onUserNameChanged(event: any) {
@@ -177,7 +134,6 @@ function UsersPage() {
   }
 
   function onCompanyChanged(event: any) {
-
     setEditedUser({ ...editedUser, companyId: +event.target.value });
   }
 
@@ -185,36 +141,30 @@ function UsersPage() {
     setEditedUser({ ...editedUser, password: event.target.value });
   }
 
-  // function changeEditingStatus(user: IUserData) {
-  //   if (isEditing == true) {
-  //     setIsEditing(false);
-  //     setEditedUser({ ...editedUser, id: 0, userType: user.userType });
-  //     return;
-  //   }
-  //   setIsEditing(true);
-  // }
-
   function onSaveClickd() {
-    console.log(editedUser);
     saveEditedUser();
-    onCancleClickd();
   }
 
-  function onCreateUserClicked() {}
-
   async function saveEditedUser() {
-    console.log(editedUser);
     try {
       const response = await axios.put(
         "http://localhost:8080/users",
         editedUser
       );
+
+      if (response.status == 200) {
+        onCancleClickd();
+        alert("Password changed successfully!");
+      }
     } catch (error: any) {
       alert(error.response.data.errorMessage);
     }
   }
 
-  function closeSignupForAdminModal() {
+  function closeSignupForAdminModal(confirm?: boolean) {
+    if (confirm) {
+      setIsCreatingNewUser(false);
+    }
     let confirmCancel = window.confirm(
       "Are you sure you want to cancel creating new user?"
     );
@@ -222,6 +172,15 @@ function UsersPage() {
       setIsCreatingNewUser(false);
     }
   }
+
+  function onShowPasswordClicked() {
+    if (passwordType == "text") {
+      setPasswordType("password");
+      return;
+    }
+    setPasswordType("text");
+  }
+
   useEffect(() => {
     if (isUserLoggedIn) {
       fetchUsers();
@@ -241,7 +200,7 @@ function UsersPage() {
   }, [isEditing]);
 
   return (
-    <div>
+    <div className="users-page">
       {isAdmin && (
         <button
           className="create-user-btn"
@@ -273,13 +232,21 @@ function UsersPage() {
               <td>{user.userType}</td>
               {isAdmin && (
                 <td>
-                  <button onClick={() => onEditClick(user)}>Edit</button>
+                  <button
+                    className="edit-btn"
+                    onClick={() => onEditClick(user)}
+                  >
+                    Edit
+                  </button>
                 </td>
               )}
               <td>
                 {(isAdmin || isCompany) && !isChangingPassword && (
                   <span>
-                    <button onClick={() => onChangePasswordClickd(user)}>
+                    <button
+                      className="change-btn"
+                      onClick={() => onChangePasswordClickd(user)}
+                    >
                       Change Password
                     </button>
                   </span>
@@ -287,13 +254,23 @@ function UsersPage() {
                 {isChangingPassword && editedUser?.id === user.id && (
                   <div>
                     <input
-                      type="text"
+                      type={passwordType}
                       placeholder="Enter new Password"
                       onChange={onPasswordChanged}
                     />
+                    <button
+                      className="show-pass"
+                      onClick={onShowPasswordClicked}
+                    >
+                      <img
+                        src={require(`../../images/show-password-16.png`)}
+                        alt="show"
+                      />
+                    </button>
+
                     <br />
-                    <button onClick={onSaveClickd}>save</button>
-                    <button onClick={onCancleClickd}>cancel</button>
+                    <button className="save-btn" onClick={onSaveClickd}>save</button>
+                    <button className="cancel-btn" onClick={onCancleClickd}>cancel</button>
                   </div>
                 )}
               </td>
@@ -323,17 +300,9 @@ function UsersPage() {
                       className="edit-company"
                       name="companies"
                       id="companies"
-                      value={user.companyId}
+                      value={editedUser.companyId}
                       onChange={onCompanyChanged}
                     >
-                      {/* <option
-                        key={user.companyId}
-                        value={user.companyId}
-                        selected
-                        hidden
-                      >
-                        {getCompanyName(user.companyId)}
-                      </option> */}
                       {companies.map((company) => (
                         <option key={company.id} value={company.id}>
                           {company.name}
@@ -365,8 +334,12 @@ function UsersPage() {
                   </select>
                 </td>
                 <td>
-                  <button onClick={onSaveClickd}>Save</button>
-                  <button onClick={onCancleClickd}>Cancel</button>
+                  <button className="save-btn" onClick={onSaveClickd}>
+                    Save
+                  </button>
+                  <button className="cancel-btn" onClick={onCancleClickd}>
+                    Cancel
+                  </button>
                 </td>
               </tr>
             )}
@@ -376,7 +349,7 @@ function UsersPage() {
       {/* SignUp modal */}
       <Modal
         isOpen={isCreatingNewUser}
-        onRequestClose={closeSignupForAdminModal}
+        onRequestClose={() => closeSignupForAdminModal()}
         style={customModalStyles}
       >
         <SignUpForAdmin closeSignupForAdminModal={closeSignupForAdminModal} />

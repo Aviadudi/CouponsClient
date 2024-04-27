@@ -10,22 +10,15 @@
 
 .couponsContainer {
   display: inline-block;
-  /* width: 100vw; */
-  /* margin-left: 100px; */
-  padding-left: 100px;
   margin-bottom: 15px;
-
-  /* text-decoration-line: underline;
-  text-underline-offset: 30%; */
 }
 
 .category{
   display: inline-block;
-  min-width: 180px;
+  min-width: 220px;
 }
-.create-btn,.prev-page-btn, .next-page-btn{
+.couponsContainer .create-btn,.prev-page-btn, .next-page-btn{
   display: inline-block;
-
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 25px;
@@ -37,17 +30,16 @@
   font-size: 14px;
 }
 
-.create-btn:hover{
+.couponsContainer .create-btn:hover{
   cursor: pointer;
 }
 
-.create-btn{
-  /* margin-right: 130px; */
-  margin-left: 230px;
+.couponsContainer .create-btn{
+  margin-left: 860px;
 }
 
 .prev-page-btn{
-  margin-left: 310px;
+  margin-left: 470px;
   margin-right: 30px;
   width: 100px;
 }
@@ -65,4 +57,10 @@
 }
 .prev-page-btn:active:is(:disabled),.next-page-btn:active:is(:disabled) {
   transform: scale(1);
+}
+
+.price-filter{
+  display: inline-block;
+  width: 220px;
+  margin-left: 890px;
 }

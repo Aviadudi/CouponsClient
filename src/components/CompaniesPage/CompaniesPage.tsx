@@ -65,15 +65,18 @@ function CompaniesPage() {
   }
 
   function onCloseEditClicked(confirm?: boolean) {
-    let confirmClose = true;
-    if (isEdited) {
-      confirmClose = window.confirm(
-        "Are you sure you want to close this window? all the information will be deleted"
-      );
-    }
-    if (confirmClose || !isEdited) {
+    if (confirm || !isEdited) {
       setIsEditing(false);
       setIsEdited(false);
+    }
+    else if (isEdited) {
+      let confirmClose = window.confirm(
+        "Are you sure you want to close this window? all the information will be deleted"
+      );
+      if (confirmClose == true) {
+        setIsEditing(false);
+        setIsEdited(false);
+      }
     }
   }
 
@@ -85,9 +88,7 @@ function CompaniesPage() {
       );
       alert("The company has been successfully edited");
       fetchCompanies();
-      setIsEdited(false);
-      setIsEditing(false);
-      onCloseEditClicked();
+      onCloseEditClicked(true);
     } catch (error: any) {
       alert(error.response.data.errorMessage);
     }
@@ -100,8 +101,7 @@ function CompaniesPage() {
   function closeCreateModal(confirm?: boolean) {
     if (confirm) {
       setIsCreateModalOpen(false);
-    }
-    else {
+    } else {
       confirm = window.confirm("Are you sure you want to exit?");
       if (confirm) {
         setIsCreateModalOpen(false);
@@ -127,7 +127,7 @@ function CompaniesPage() {
 
   return (
     <div>
-      <button onClick={onCreateCompanyClicked}>Create Company</button>
+      <button className="create-btn" onClick={onCreateCompanyClicked}>Create Company</button>
       <table className="companies-page">
         <tr className="companies-table-header">
           <td>Id</td>
@@ -148,7 +148,7 @@ function CompaniesPage() {
               <td>{company.phone}</td>
               {isAdmin && (
                 <td>
-                  <button onClick={() => onEditClick(company)}>Edit</button>
+                  <button className="edit-btn" onClick={() => onEditClick(company)}>Edit</button>
                 </td>
               )}
             </tr>
@@ -188,8 +188,8 @@ function CompaniesPage() {
                   />
                 </td>
                 <td>
-                  <button onClick={onSaveClickd}>save</button>
-                  <button onClick={() => onCloseEditClicked()}>cancel</button>
+                  <button className="save-btn" onClick={onSaveClickd}>save</button>
+                  <button className="cancel-btn" onClick={() => onCloseEditClicked()}>cancel</button>
                 </td>
               </tr>
             )}
@@ -199,7 +199,7 @@ function CompaniesPage() {
 
       <Modal
         isOpen={isCreateModalOpen}
-        onRequestClose={()=>closeCreateModal}
+        onRequestClose={() => closeCreateModal}
         style={customModalStyles}
       >
         <CreateCompany

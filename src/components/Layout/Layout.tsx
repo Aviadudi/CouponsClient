@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import CouponsContainer from "../CouponsContainer/CouponsContainer";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";

@@ -19,9 +19,7 @@ function SignUpForAdmin(props: SignUpForAdmin) {
     companyId: 0,
   });
   let companies = useSelector((state: AppState) => state.companies);
-  //   let userTypes = useSelector((state:AppState) => state.)
   let usersTypes = ["ADMIN", "COMPANY", "CUSTOMER"];
-  let [userType, setUserType] = useState("");
 
   function onUserNameChanged(event: any) {
     setNewUser({ ...newUser, username: event.target.value });
@@ -47,6 +45,7 @@ function SignUpForAdmin(props: SignUpForAdmin) {
         "http://localhost:8080/users/admin",
         newUser
       );
+      props.closeSignupForAdminModal(true);
     } catch (error: any) {
       alert(error.response.data.errorMessage);
     }
@@ -54,6 +53,7 @@ function SignUpForAdmin(props: SignUpForAdmin) {
 
   return (
     <div className="sign-up-for-admin">
+      <button onClick={()=>props.closeSignupForAdminModal()}>X</button>
       <form>
         <h1>Create new user</h1>
         <label>

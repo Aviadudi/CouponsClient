@@ -35,7 +35,6 @@ function CreateCompany(props: ICreateCompany) {
       alert("The company has been successfully created");
       props.fetchCompanies();
       props.closeCreateModal(true);
-    
     } catch (error: any) {
       alert(error.response.data.errorMessage);
     }
